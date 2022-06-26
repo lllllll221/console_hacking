@@ -52,6 +52,7 @@ int main() {
     }
     
     std::cout << "-----------------" << std::endl;
+    std::cout << "Output vector - ";
 
     for (std::string c : output) {
         std::cout << c;
