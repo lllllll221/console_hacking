@@ -66,5 +66,5 @@ push.sh
 
 # Crap file
 *crap.cpp
-*damn.cpp
+*damn*.cpp
 *try.cpp
