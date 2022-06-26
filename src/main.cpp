@@ -47,7 +47,7 @@ std::vector<char> Convert(const std::vector<std::string>& output) {
 }
 
 int main() {
-    const std::vector<std::string> output = GeneratingOutput(punctuation, words);
+    const std::vector<std::string> output = GeneratingOutput(punctuation_string, words);
     const std::vector<char> converted = Convert(output); 
     for (size_t i = 1; i <= addresses.size(); i++) {
         std::cout << addresses[i - 1] << " ";
