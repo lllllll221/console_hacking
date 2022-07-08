@@ -1,7 +1,9 @@
-#include <random>
+#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <set>
 #include <string>
+#include <random>
 #include <vector>
 #include "data.h"
 
@@ -56,6 +58,25 @@ void ChoosingTheRightWord(const std::vector<std::string>& keys_vector) {
     std::mt19937 gen(rd());  // посеять мерсенн твистер
     std::uniform_int_distribution<> k(0, keys_vector.size() - 1);
     key =  keys_vector[k(gen)];
+    std::cout << key << std::endl;
+}
+
+std::set<char> ConvertStringToSetChar(const std::string& word) {
+    std::set<char> exhaust;
+    for (char c : word) {
+        exhaust.insert(c);
+    }
+    return exhaust;
+}
+
+int NumbersOfCoincidences(const std::set<char>& skey, const std::set<char>& suser) {
+    std::vector<int> intersection;
+
+    std::set_intersection(std::cbegin(skey), std::cend(skey),
+                          std::cbegin(suser), std::cend(suser),
+                          std::back_inserter(intersection));
+    
+    return intersection.size();
 }
 
 /*
@@ -67,6 +88,7 @@ int RelevanceCheck(const std::string& user, const std::string& key) {
 int main() {
     const std::vector<std::string> output = GeneratingOutput(punctuation_string, words);
     const std::vector<char> converted = Convert(output);
+    ChoosingTheRightWord(keys_vector);
     std::string user;
     for (int i = 0; i < 4; i++) {
         for (size_t i = 0; i < addresses.size(); i++) {
@@ -76,14 +98,22 @@ int main() {
             }
             std::cout << std::endl;
         }
+
         user = ReadLine();
+        const std::set<char> skey = ConvertStringToSetChar(key);
+        const std::set<char> suser = ConvertStringToSetChar(user);
+
+        std::cout << "Coincidences - " << NumbersOfCoincidences(skey, suser) << std::endl;
+        
         if (user == key) {
             std::cout << "Win!" << std::endl;
             break;
         }
+
         std::cout << "-----------------" << std::endl;
         std::cout << "----NICE  TRY----" << std::endl;
         std::cout << "-----------------" << std::endl;
+
     }
 /*
     std::cout << "-----------------" << std::endl;
